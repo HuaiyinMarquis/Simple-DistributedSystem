@@ -1,0 +1,49 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/imspa
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 1
+      minimum-idle: 1
+      idle-timeout: 30000
+      connection-timeout: 15000
+      max-lifetime: 900000
+  redis:
+    host: localhost
+    port: 6379
+    jedis:
+      pool:
+        max-active: 5
+        max-idle: 5
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: secret
+    template:
+      retry:
+        enabled: true
+        initial-interval: 2s
+
+
+mybatis:
+  mapper-locations: classpath*:/mapper/**/*.xml
+
+server:
+  port: 8081
+
+service:
+  addr: localhost:8091
+  interfaces:
+    - 'com.imspa.api.OrderRemoteService'
+
+rabbitmq:
+  exchange: rabbitmq-exchange
+  queue:
+    user: user-queue
+    order: order-queue
+  routingKey:
+    user: user-routingKey
+    order: order-routingKey
